@@ -45,6 +45,22 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public List<ItemGroup> getItems() {
+        return items;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
         return "Order{" +

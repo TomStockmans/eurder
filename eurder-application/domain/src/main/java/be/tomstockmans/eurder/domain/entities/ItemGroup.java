@@ -31,7 +31,7 @@ public class ItemGroup {
     }
 
     private void calculateShippingDate() {
-        if(item.getAmount() > 0){
+        if(item.getAmount() - amount >= 0){
             this.shippingDate = LocalDate.now().plus(1, ChronoUnit.DAYS);
         }
         else {

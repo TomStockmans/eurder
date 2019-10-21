@@ -1,4 +1,4 @@
-package be.tomstockmans.eurder.api;
+package be.tomstockmans.eurder.api.controller;
 
 import be.tomstockmans.eurder.domain.dto.ItemDto;
 import be.tomstockmans.eurder.domain.entities.Item;
@@ -34,6 +34,15 @@ public class ItemController {
         Item item =  itemRepository.findById(id).get();
         return new ItemDto(item.getId(),item.getName(),item.getDescription(),item.getPrice(),item.getAmount());
 
+    }
+
+    @RequestMapping( method = RequestMethod.PUT)
+    public void updateItem(@RequestBody ItemDto itemDto){
+        Item item = new Item(itemDto.name,itemDto.description, itemDto.price,itemDto.amount);
+        item.setId(itemDto.id);
+        Item newitem =  itemRepository.save(item);
+        System.out.println(newitem.toString());
+        //return newitem;
     }
 
 

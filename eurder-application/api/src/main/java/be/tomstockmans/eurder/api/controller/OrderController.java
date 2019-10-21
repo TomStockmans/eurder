@@ -1,7 +1,7 @@
-package be.tomstockmans.eurder.api;
+package be.tomstockmans.eurder.api.controller;
 
+import be.tomstockmans.eurder.domain.db.ItemRepository;
 import be.tomstockmans.eurder.domain.dto.OrderDto;
-import be.tomstockmans.eurder.domain.entities.Item;
 import be.tomstockmans.eurder.domain.entities.ItemGroup;
 import be.tomstockmans.eurder.domain.entities.Order;
 import be.tomstockmans.eurder.domain.db.OrderRepository;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -19,25 +18,33 @@ import java.util.List;
 public class OrderController {
 
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
+
+    @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
+    private ItemRepository itemRepository;
+
+
     public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
     @PostMapping
-    public void addOrder(@RequestBody OrderDto orderDto){
+    public OrderDto addOrder(@RequestBody OrderDto orderDto){
 
         List<ItemGroup> itemGroups = new ArrayList<>();
         for (ItemGroup itemGroup: orderDto.items) {
-            itemGroups.add(new ItemGroup(itemGroup.getItem(),itemGroup.getAmount()));
+            itemGroups.add(new ItemGroup(
+                    itemRepository.findById(itemGroup.getItem().getId()).get(),
+                    itemGroup.getAmount()
+            ));
         }
 
         Order order = new Order(itemGroups,orderDto.userId);
-        Order order1 = orderRepository.save(order);
-        logger.info("added order " + order1.toString());
-
+        Order createdOrder = orderRepository.save(order);
+        logger.info("added order " + createdOrder.toString());
+        return new OrderDto(createdOrder.getId(),createdOrder.getItems(),createdOrder.getTotalPrice(),createdOrder.getUserId());
     }
 
     /*

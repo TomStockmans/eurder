@@ -1,4 +1,4 @@
-package be.tomstockmans.eurder.api;
+package be.tomstockmans.eurder.api.controller;
 
 import be.tomstockmans.eurder.domain.entities.User;
 import be.tomstockmans.eurder.domain.db.UserRepository;
