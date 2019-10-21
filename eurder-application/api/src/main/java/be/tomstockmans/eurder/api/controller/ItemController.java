@@ -41,7 +41,7 @@ public class ItemController {
         Item item = new Item(itemDto.name,itemDto.description, itemDto.price,itemDto.amount);
         item.setId(itemDto.id);
         Item newitem =  itemRepository.save(item);
-        System.out.println(newitem.toString());
+        logger.info("updated item: " + newitem.toString());
         //return newitem;
     }
 
