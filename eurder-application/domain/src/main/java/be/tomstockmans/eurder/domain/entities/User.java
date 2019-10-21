@@ -1,4 +1,4 @@
-package be.tomstockmans.eurder.domain;
+package be.tomstockmans.eurder.domain.entities;
 
 import java.util.UUID;
 import javax.persistence.Entity;
@@ -54,6 +54,30 @@ public class User {
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

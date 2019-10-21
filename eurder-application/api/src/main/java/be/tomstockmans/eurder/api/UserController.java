@@ -1,7 +1,9 @@
 package be.tomstockmans.eurder.api;
 
-import be.tomstockmans.eurder.domain.User;
+import be.tomstockmans.eurder.domain.entities.User;
 import be.tomstockmans.eurder.domain.db.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 public class UserController {
 
-
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserRepository userRepository;
 
     @Autowired
@@ -18,14 +20,16 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public void addUser(@RequestBody User user){
 
         try {
-            userRepository.save(user);
+
+            User addedUser = userRepository.save(user);
+            logger.info("user added " + addedUser.toString());
 
         }catch (Exception e){
-            System.out.println(e.getMessage());
+           logger.error(e.getMessage());
         }
 
     }
