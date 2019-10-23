@@ -1,4 +1,6 @@
-package be.tomstockmans.eurder.domain.entities;
+package be.tomstockmans.eurder.domain.entities.Order;
+
+import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroup;
 
 import javax.persistence.*;
 import java.util.List;

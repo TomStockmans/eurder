@@ -1,4 +1,4 @@
-package be.tomstockmans.eurder.domain.entities;
+package be.tomstockmans.eurder.domain.entities.User;
 
 import java.util.UUID;
 import javax.persistence.Entity;

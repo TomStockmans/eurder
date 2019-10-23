@@ -1,4 +1,4 @@
-package be.tomstockmans.eurder.domain.entities;
+package be.tomstockmans.eurder.domain.entities.item;
 
 import lombok.NoArgsConstructor;
 

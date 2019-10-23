@@ -1,48 +1,44 @@
 package be.tomstockmans.eurder.api.controller;
 
-import be.tomstockmans.eurder.domain.dto.ItemDto;
-import be.tomstockmans.eurder.domain.entities.Item;
-import be.tomstockmans.eurder.domain.db.ItemRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import be.tomstockmans.eurder.api.service.ItemService;
+import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
+import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.UUID;
 
+import static org.springframework.http.MediaType.*;
+
 @RestController
-@RequestMapping("/item")
+@RequestMapping(ItemController.ITEM_CONTROLLER_RESOURCE_URL)
 public class ItemController {
 
-    private Logger logger = LoggerFactory.getLogger(ItemController.class);
-    private ItemRepository itemRepository;
+
+    public static final String ITEM_CONTROLLER_RESOURCE_URL = "/item";
+    private ItemService itemService;
 
     @Autowired
-    public ItemController(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
     }
 
-    @PostMapping
-    public void addItem(@RequestBody ItemDto itemDto) {
-        Item item = new Item(itemDto.name, itemDto.description,itemDto.price, itemDto.amount);
-        Item savedItem = itemRepository.save(item);
-        logger.info("added item " + savedItem.toString());
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ItemDtoResponse addItem(@RequestBody ItemDtoRequest itemDtoRequest) {
+        return itemService.addItem(itemDtoRequest);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ItemDto getItem(@PathVariable("id") UUID id){
-        Item item =  itemRepository.findById(id).get();
-        return new ItemDto(item.getId(),item.getName(),item.getDescription(),item.getPrice(),item.getAmount());
-
+    public ItemDtoResponse getItem(@PathVariable("id") UUID id){
+       return itemService.getItemById(id);
     }
 
-    @RequestMapping( method = RequestMethod.PUT)
-    public void updateItem(@RequestBody ItemDto itemDto){
-        Item item = new Item(itemDto.name,itemDto.description, itemDto.price,itemDto.amount);
-        item.setId(itemDto.id);
-        Item newitem =  itemRepository.save(item);
-        logger.info("updated item: " + newitem.toString());
-        //return newitem;
+    @PutMapping("/{id}")
+    public ItemDtoResponse updateItem(@RequestBody ItemDtoRequest itemDtoRequest, @PathVariable UUID id){
+        return itemService.updateItem(itemDtoRequest, id);
     }
 
 

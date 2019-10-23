@@ -1,19 +1,17 @@
-package be.tomstockmans.eurder.domain.dto;
+package be.tomstockmans.eurder.domain.entities.item;
 
-import java.util.UUID;
+public class ItemDtoRequest {
 
-public class ItemDto {
-    public UUID id;
     public String name;
     public String description;
     public double price;
     public int amount;
 
-    public ItemDto() {
+    public ItemDtoRequest() {
     }
 
-    public ItemDto(UUID id, String name, String description, double price, int amount) {
-        this.id = id;
+    public ItemDtoRequest(String name, String description, double price, int amount) {
+
         this.name = name;
         this.description = description;
         this.price = price;

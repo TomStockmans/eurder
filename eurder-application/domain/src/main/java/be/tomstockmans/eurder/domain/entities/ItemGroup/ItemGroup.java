@@ -1,4 +1,6 @@
-package be.tomstockmans.eurder.domain.entities;
+package be.tomstockmans.eurder.domain.entities.ItemGroup;
+
+import be.tomstockmans.eurder.domain.entities.item.Item;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package be.tomstockmans.eurder.api.controller;
 
-import be.tomstockmans.eurder.domain.entities.User;
+import be.tomstockmans.eurder.domain.entities.User.User;
 import be.tomstockmans.eurder.domain.db.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,6 @@ public class UserController {
     public void addUser(@RequestBody User user){
 
         try {
-
             User addedUser = userRepository.save(user);
             logger.info("user added " + addedUser.toString());
 
