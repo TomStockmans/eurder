@@ -1,6 +1,8 @@
 package be.tomstockmans.eurder.domain.entities.User;
 
-public class UserDto {
+import java.util.UUID;
+
+public class CreateUserDto {
 
     public String firstName;
     public String lastName;
@@ -8,7 +10,8 @@ public class UserDto {
     public String adress;
     public String phoneNumber;
 
-    public UserDto(String firstName, String lastName, String email, String adress, String phoneNumber) {
+    public CreateUserDto(String firstName, String lastName, String email, String adress, String phoneNumber) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

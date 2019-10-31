@@ -1,17 +1,26 @@
 package be.tomstockmans.eurder.domain.entities.User;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserMapper {
-    public static UserDto usertoDto(User user){
-        return new UserDto(user.getFirstName(),user.getLastName(),user.getEmail(),user.getAdress(),user.getPhoneNumber());
+    public static UserCreatedResponseDto userToDto(User user) {
+        return new UserCreatedResponseDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAdress(), user.getPhoneNumber());
     }
 
-    public static List<UserDto> multipleUserstoDto(List<User> users){
+    public static List<UserCreatedResponseDto> multipleUserstoDto(List<User> users) {
 
-        return users.stream().map(UserMapper::usertoDto).collect(Collectors.toList());
+        return users.stream().map(UserMapper::userToDto).collect(Collectors.toList());
+
+    }
+
+    public static User ceateUserDtoToUser(CreateUserDto createUserDto) {
+        return new User(createUserDto.firstName,
+                createUserDto.lastName,
+                createUserDto.email,
+                createUserDto.adress,
+                createUserDto.phoneNumber
+        );
 
     }
 }

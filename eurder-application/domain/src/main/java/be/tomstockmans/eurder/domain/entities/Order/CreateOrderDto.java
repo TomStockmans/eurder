@@ -6,23 +6,23 @@ import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroupDtoRequest;
 import java.util.List;
 import java.util.UUID;
 
-public class OrderDtoRequest {
+public class CreateOrderDto {
 
     public UUID userId;
     public List<ItemGroupDtoRequest> items;
     //public UUID userId;
 
-    public OrderDtoRequest(UUID userId, List<ItemGroupDtoRequest> items){
+    public CreateOrderDto(UUID userId, List<ItemGroupDtoRequest> items){
         this.items = items;
         //this.userId = userId;
     }
 
-    public OrderDtoRequest() {
+    public CreateOrderDto() {
     }
 
     @Override
     public String toString() {
-        return "OrderDtoRequest{" +
+        return "CreateOrderDto{" +
                 "items=" + items +
                 '}';
     }

@@ -5,12 +5,16 @@ import be.tomstockmans.eurder.domain.db.ItemRepository;
 import be.tomstockmans.eurder.domain.entities.item.Item;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;;
+import be.tomstockmans.eurder.domain.entities.item.ItemMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import static be.tomstockmans.eurder.domain.entities.item.ItemMapper.*;
 
@@ -44,4 +48,9 @@ public class ItemService {
     }
 
 
+    public List<ItemDtoResponse> getAllItems() {
+        List<ItemDtoResponse> items = new ArrayList<>();
+        itemRepository.findAll().forEach(item -> items.add(ItemMapper.itemToDtoResponse(item)));
+        return items;
+    }
 }

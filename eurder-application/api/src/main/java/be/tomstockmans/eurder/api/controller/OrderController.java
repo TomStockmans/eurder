@@ -1,19 +1,21 @@
 package be.tomstockmans.eurder.api.controller;
 
 import be.tomstockmans.eurder.api.service.OrderService;
-import be.tomstockmans.eurder.domain.entities.Order.OrderDtoRequest;
-import be.tomstockmans.eurder.domain.entities.Order.OrderDtoResponse;
+import be.tomstockmans.eurder.domain.entities.Order.CreateOrderDto;
+import be.tomstockmans.eurder.domain.entities.Order.OrderCreatedDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(OrderController.ORDER_CONTROLLER_RESOURCE_URL)
 public class OrderController {
 
-    public static final String ORDER_CONTROLLER_RESOURCE_URL = "/order";
+    public static final String ORDER_CONTROLLER_RESOURCE_URL = "/orders";
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 
@@ -26,8 +28,14 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDtoResponse addOrder(@RequestBody OrderDtoRequest orderDtoRequest){
-        return orderService.addOrder(orderDtoRequest);
+    public OrderCreatedDto addOrder(@RequestBody CreateOrderDto createOrderDto){
+        return orderService.addOrder(createOrderDto);
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<OrderCreatedDto> getAllOrders(){
+        return orderService.getAllOrders();
     }
 
 }

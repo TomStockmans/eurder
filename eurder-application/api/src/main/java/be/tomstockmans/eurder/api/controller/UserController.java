@@ -1,35 +1,46 @@
 package be.tomstockmans.eurder.api.controller;
 
-import be.tomstockmans.eurder.domain.entities.User.User;
-import be.tomstockmans.eurder.domain.db.UserRepository;
+import be.tomstockmans.eurder.api.service.UserService;
+import be.tomstockmans.eurder.domain.entities.User.CreateUserDto;
+import be.tomstockmans.eurder.domain.entities.User.UserCreatedResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/user")
+import java.util.List;
+import java.util.UUID;
 
+@RestController
+@RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user){
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserCreatedResponseDto addUser(@RequestBody CreateUserDto createUserDto) {
+        return userService.addUser(createUserDto);
 
-        try {
-            User addedUser = userRepository.save(user);
-            logger.info("user added " + addedUser.toString());
+    }
 
-        }catch (Exception e){
-           logger.error(e.getMessage());
-        }
+    @GetMapping
+    public List<UserCreatedResponseDto> getAllUsers() {
+        return userService.getAllUsers();
+
+    }
+
+    @GetMapping(path = "/{id}")
+    public UserCreatedResponseDto getUserWithId(@PathVariable UUID id) {
+        return userService.getUserById(id);
 
     }
 

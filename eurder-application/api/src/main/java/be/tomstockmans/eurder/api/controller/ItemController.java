@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.MediaType.*;
@@ -17,7 +18,7 @@ import static org.springframework.http.MediaType.*;
 public class ItemController {
 
 
-    public static final String ITEM_CONTROLLER_RESOURCE_URL = "/item";
+    public static final String ITEM_CONTROLLER_RESOURCE_URL = "/items";
     private ItemService itemService;
 
     @Autowired
@@ -34,6 +35,12 @@ public class ItemController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ItemDtoResponse getItem(@PathVariable("id") UUID id){
        return itemService.getItemById(id);
+    }
+
+    //TEST FUNCTION
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ItemDtoResponse> getAllItem(){
+        return itemService.getAllItems();
     }
 
     @PutMapping("/{id}")

@@ -8,6 +8,7 @@ public class ItemDtoRequest {
     public int amount;
 
     public ItemDtoRequest() {
+
     }
 
     public ItemDtoRequest(String name, String description, double price, int amount) {

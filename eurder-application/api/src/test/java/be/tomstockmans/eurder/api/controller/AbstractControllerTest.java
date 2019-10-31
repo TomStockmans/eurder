@@ -1,7 +1,5 @@
 package be.tomstockmans.eurder.api.controller;
 
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,8 +11,4 @@ abstract class AbstractControllerTest {
 
     @Value("${server.port}")
     protected int port;
-
-
-
-
 }

@@ -9,4 +9,8 @@ public class ItemMapper {
     public static ItemDtoResponse itemToDtoResponse(Item item){
         return new ItemDtoResponse(item.getId(),item.getName(),item.getDescription(),item.getPrice(),item.getAmount());
     }
+
+    public static ItemInOrderResponseDto itemToItemInOrderResponseDto(Item item){
+        return new ItemInOrderResponseDto(item.getId(), item.getName(), item.getDescription(),item.getPrice());
+    }
 }
