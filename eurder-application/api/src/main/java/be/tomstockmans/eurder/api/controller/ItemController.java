@@ -15,6 +15,7 @@ import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping(ItemController.ITEM_CONTROLLER_RESOURCE_URL)
+@CrossOrigin
 public class ItemController {
 
 
@@ -37,15 +38,15 @@ public class ItemController {
        return itemService.getItemById(id);
     }
 
-    //TEST FUNCTION
-    @RequestMapping(method = RequestMethod.GET)
-    public List<ItemDtoResponse> getAllItem(){
-        return itemService.getAllItems();
-    }
 
     @PutMapping("/{id}")
     public ItemDtoResponse updateItem(@RequestBody ItemDtoRequest itemDtoRequest, @PathVariable UUID id){
         return itemService.updateItem(itemDtoRequest, id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ItemDtoResponse> getAllItem(){
+        return itemService.getAllItems();
     }
 
 
