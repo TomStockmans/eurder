@@ -29,7 +29,7 @@ export class OrderComponent implements OnInit {
         })[0]
     , 
     amount : 
-        document.getElementById(id).value
+        (<HTMLInputElement>document.getElementById(id)).value
     });
   }
 

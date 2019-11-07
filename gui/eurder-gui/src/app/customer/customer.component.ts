@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from '../customer.service';
 
 @Component({
   selector: 'app-customer',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerComponent implements OnInit {
 
+  customerService = new CustomerService();
+  customers : [];
+  customerDetail : any;
+
+
+  getAllCustomers(){
+    this.customerService.getAllCustomers().then(value => this.customers = value)
+  }
+
+  showCustomerDetail(id){
+    //console.log(JSON.stringify(this.customers))
+    this.customerService.getCustomerDetail(id).then(value => this.customerDetail = value)
+  }
+
   constructor() { }
 
   ngOnInit() {
+    this.getAllCustomers();    
   }
 
 }

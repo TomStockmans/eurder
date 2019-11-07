@@ -1,1 +1,19 @@
-<p>customer works!</p>
+<h2>Customers</h2>
+<div *ngIf="customerDetail == null">
+
+    <ul *ngFor = "let customer of customers">
+        <li><a (click) = "showCustomerDetail(customer.id)" >{{customer.firstName}} {{customer.lastName}}</a></li>
+    </ul>
+</div>
+<div *ngIf="customerDetail != null">
+    <h3>details of {{customerDetail.firstName}} {{customerDetail.lastName}} </h3>
+    <ul>
+        <li>Id: {{customerDetail.id}}</li>
+        <li>First name: {{customerDetail.firstName}}</li>
+        <li>Last name: {{customerDetail.lastName}}</li>
+        <li>Email: {{customerDetail.email}}</li>
+        <li>Adress: {{customerDetail.adress}}</li>
+        <li>Phonenumber: {{customerDetail.phoneNumber}}</li>
+    </ul>
+    <button (click) = "customerDetail = null">ok</button>
+</div>
