@@ -1,14 +1,13 @@
 package be.tomstockmans.eurder.domain.entities.User;
 
-import java.util.UUID;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.UUID;
 
 
 @Entity
-public class User {
+public class User implements ExternalAuthentication{
 
     @Id
     private UUID id;
@@ -17,14 +16,19 @@ public class User {
     private String email;
     private String adress;
     private String phoneNumber;
+    private ROLE role;
+    private String password;
 
-    public User(String firstName, String lastName, String email, String adress, String phoneNumber) {
+
+    public User(String firstName, String lastName, String email, String adress, String phoneNumber, String password, ROLE role) {
         this.id = UUID.randomUUID();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
+        this.password = PasswordEncoder.encode(password);
+        this.role = role;
     }
 
     public User() {
@@ -88,6 +92,22 @@ public class User {
                 ", email='" + email + '\'' +
                 ", adress='" + adress + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", role=" + role +
+                ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getRole() {
+        return role.name();
     }
 }

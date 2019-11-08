@@ -1,13 +1,17 @@
-<h2>register new user</h2>
-<form *ngIf="addedUser == null" action="/action_page.php">
+<div *ngIf="addedUser == null" class="pushright">
+<h2>Register new user</h2>
+<form>
     First name: <input type="text" name="fname" [(ngModel)]="user.firstName"><br>
     Last name: <input type="text" name="lname" [(ngModel)]="user.lastName"><br>
     Email: <input type="text" name="email" [(ngModel)]="user.email"><br>
+    Password: <input type="text" name="password" [(ngModel)]="user.password"><br>
+    Role: <input type="text" name="role" [(ngModel)]="user.role"><br>
     Adress: <input type="text" name="adress" [(ngModel)]="user.adress"><br>
     Phone number: <input type="text" name="adress" [(ngModel)]="user.phoneNumber"><br>
     <input type="submit" value="Submit" (click)="addUser()">
   </form> 
-  <div *ngIf="addedUser != null">
+  </div>
+  <div class="pushright" *ngIf="addedUser != null">
         <h2>New User added:</h2>
         <ul>
             <li>{{addedUser.firstName}} {{addedUser.lastName}}</li>

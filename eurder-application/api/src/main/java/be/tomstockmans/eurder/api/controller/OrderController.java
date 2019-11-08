@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(OrderController.ORDER_CONTROLLER_RESOURCE_URL)
-@CrossOrigin
+//@CrossOrigin
 public class OrderController {
 
     public static final String ORDER_CONTROLLER_RESOURCE_URL = "/orders";

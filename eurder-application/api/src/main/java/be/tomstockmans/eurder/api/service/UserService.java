@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,5 +48,14 @@ public class UserService {
 
     public UserCreatedResponseDto getUserById(UUID id) {
         return UserMapper.userToDto(userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
+
+    public User findUserByUsername(String username) {
+        try {
+
+            return userRepository.findByUserName(username);
+        } catch (Exception e){
+            throw new BadCredentialsException("username or password not correct");
+        }
     }
 }

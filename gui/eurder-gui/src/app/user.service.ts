@@ -12,6 +12,7 @@ export class UserService {
   constructor() { }
 
   apiUrl : string = 'http://localhost:8080/users';
+  apiAuthenticateUrl : string = 'http://localhost:8080';
 
   async addUser (user : User) : Promise<any> {
     const response = await axios.post(this.apiUrl, user).then(response => {
@@ -21,6 +22,18 @@ export class UserService {
     });
 
     if(response) return response;
+  }
+
+  async login (username, password) : Promise<any> {
+    const response = await axios.get(this.apiAuthenticateUrl+ "/authenticate?username=" + username + "&password=" + password).then(response => {
+      //alert(response.status)
+      if(response.status == 200){
+        console.log(JSON.stringify(response.headers.authorization))
+        return response.headers;
+      }
+    });
+
+    if(response) {return response};
   }
 
 }

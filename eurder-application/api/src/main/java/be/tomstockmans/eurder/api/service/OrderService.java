@@ -9,6 +9,7 @@ import be.tomstockmans.eurder.domain.entities.Order.OrderCreatedDto;
 import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroup;
 import be.tomstockmans.eurder.domain.entities.Order.Order;
 import be.tomstockmans.eurder.domain.entities.Order.OrderMapper;
+import be.tomstockmans.eurder.domain.entities.User.ROLE;
 import be.tomstockmans.eurder.domain.entities.User.User;
 import be.tomstockmans.eurder.domain.entities.item.Item;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class OrderService {
         this.itemRepository = itemRepository;
         this.userRepository = userRepository;
 
-        User user = this.userRepository.save(new User("tom", "stockmans", "tom.st@hotmai.com", "tw wilsonlaan 2", "0496209967"));
+        User user = this.userRepository.save(new User("tom", "stockmans", "tom.stockmans@hotmail.com", "tw wilsonlaan 2", "0496209967","tommeke", ROLE.ADMIN));
         Item item1 = this.itemRepository.save(new Item("item1", "item 1 description", 2.5, 5));
         Item item2 = this.itemRepository.save(new Item("item2", "item 2 description", 3.5, 7));
 

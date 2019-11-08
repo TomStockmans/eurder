@@ -1,0 +1,12 @@
+body{
+    margin: 0%;
+}
+ul{
+    list-style-type:none
+}
+.pushright{
+    margin-left: 5%;
+    margin-right: auto;
+    width: 50%;
+  }
+

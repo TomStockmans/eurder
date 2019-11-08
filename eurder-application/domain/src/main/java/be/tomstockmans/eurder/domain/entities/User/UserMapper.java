@@ -19,7 +19,9 @@ public class UserMapper {
                 createUserDto.lastName,
                 createUserDto.email,
                 createUserDto.adress,
-                createUserDto.phoneNumber
+                createUserDto.phoneNumber,
+                createUserDto.password,
+                createUserDto.role
         );
 
     }

@@ -1,3 +1,4 @@
+<div *ngIf="addedItem == null" class="pushright">
 <h2>Add new item</h2>
 <form>
     Name: <input type="text" name="fname" [(ngModel)]="item.name"><br>
@@ -5,8 +6,9 @@
     Price: <input type="text" name="email" [(ngModel)]="item.price"><br>
     Amount: <input type="text" name="adress" [(ngModel)]="item.amount"><br>
     <input type="submit" value="Submit" (click)="addItem()">
-  </form> 
-  <div *ngIf="addedItem != null">
+  </form>
+</div> 
+  <div *ngIf="addedItem != null" class="pushright">
     <h2>New item added:</h2>
     <ul>
         <li>name: {{addedItem.name}}</li>

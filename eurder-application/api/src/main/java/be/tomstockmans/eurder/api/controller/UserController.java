@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
+//@CrossOrigin
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -35,7 +35,6 @@ public class UserController {
     @GetMapping
     public List<UserCreatedResponseDto> getAllUsers() {
         return userService.getAllUsers();
-
     }
 
     @GetMapping(path = "/{id}")

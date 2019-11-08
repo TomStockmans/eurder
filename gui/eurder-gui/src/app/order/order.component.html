@@ -1,25 +1,55 @@
+<div class="pushright">
 <h2>new order</h2>
 <p *ngIf="items == null">loading..</p>
 <div *ngIf="orderPlaced == null">
-<div *ngIf="items != null">
-    <ul *ngFor="let item of items" style="list-style-type:none">
-            <li>{{item.name}}</li>
-            <li>{{item.description}}</li>
-            <li>price: {{item.price}}</li>
-            <li>left in stock: {{item.amount}}</li>
-            <input type="number" [attr.id]="item.id" name="amount"
-            min="1" max="100" placeholder="1">
-            <button (click)="addToCart(item.id)">add</button>
-        </ul>
-    </div>
-    <div *ngIf="isCardNotEmpty()">
-        <h3>Shopping card</h3>
-        <ul *ngFor="let itemgroup of shoppingCard">
-            <li>{{itemgroup.item.name}}</li>
-            <li>amount: {{itemgroup.amount}}</li>
-        </ul>
-        <button (click)="placeOrder()">place order</button>
-    </div>
+    <div *ngIf="items != null">
+        <div *ngFor="let item of items" class="items">
+                <table>
+                        <tr>
+                          <td>Name</td>
+                          <td>{{item.name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{item.description}}</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td>{{item.price}}</td>
+                        </tr>
+                        <tr>
+                            <td>Left in stock</td>
+                            <td>{{item.amount}}</td>
+                        </tr>
+                        <tr>
+                            <td><input type="number" [attr.id]="item.id" name="amount" min="1" max="100" placeholder="1"></td>
+                             <td><button (click)="addToCart(item.id)">add</button></td>
+                        </tr>
+                </table>
+                
+                
+            </div>
+        </div>
+        <div *ngIf="isCardNotEmpty()">
+            <h3>Shopping card</h3>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+                
+               <tr *ngFor="let itemgroup of shoppingCard">
+                   <td>
+                        {{itemgroup.item.name}}
+                   </td>
+                   <td>
+                        {{itemgroup.amount}}
+                   </td>
+               </tr>
+           
+            </table>
+            <button (click)="placeOrder()">place order</button>
+        </div>
     </div>
     <div *ngIf="orderPlaced != null">
         <h3>order placed!</h3>
@@ -31,5 +61,5 @@
         </ul>
         <p>total price : {{orderPlaced.totalPrice}}</p>
     </div>
-    
+</div>
     

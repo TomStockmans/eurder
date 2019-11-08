@@ -8,11 +8,13 @@ import { UserComponent } from './user/user.component';
 import { ItemComponent } from './item/item.component';
 import { OrderComponent } from './order/order.component';
 import { CustomerComponent } from './customer/customer.component';
+import { LoginComponent } from './login/login.component';
 const appRoutes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'item', component: ItemComponent },
   { path: 'order', component: OrderComponent },
   { path: 'customer', component: CustomerComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     UserComponent,
     ItemComponent,
     OrderComponent,
-    CustomerComponent
+    CustomerComponent,
+    LoginComponent
   ],
   imports: [
       RouterModule.forRoot(
