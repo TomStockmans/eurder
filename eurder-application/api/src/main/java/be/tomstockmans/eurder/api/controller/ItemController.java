@@ -15,7 +15,7 @@ import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping(ItemController.ITEM_CONTROLLER_RESOURCE_URL)
-//@CrossOrigin
+@CrossOrigin
 public class ItemController {
 
 

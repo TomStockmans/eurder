@@ -23,8 +23,8 @@ public class EurderAuthenticationService  implements AuthenticationProvider {
     private final CustomAuthenticationService customAuthenticationService;
 
     @Autowired
-    public EurderAuthenticationService(CustomAuthenticationService fakeAuthenticationService) {
-        this.customAuthenticationService = fakeAuthenticationService;
+    public EurderAuthenticationService(CustomAuthenticationService customAuthenticationService) {
+        this.customAuthenticationService = customAuthenticationService;
     }
 
     @Override

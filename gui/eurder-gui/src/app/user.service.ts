@@ -28,7 +28,8 @@ export class UserService {
     const response = await axios.get(this.apiAuthenticateUrl+ "/authenticate?username=" + username + "&password=" + password).then(response => {
       //alert(response.status)
       if(response.status == 200){
-        console.log(JSON.stringify(response.headers.authorization))
+        localStorage.setItem("role", response.headers.role);
+        localStorage.setItem("token", response.headers.authorization);
         return response.headers;
       }
     });

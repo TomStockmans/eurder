@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+constructor(private router: Router){
+
+}
+
   title = 'eurder-gui';
+  getRole() {
+    console.log(localStorage.getItem("role"));
+    return localStorage.getItem("role");
+}
+
+logout(){
+  localStorage.setItem("role", null)
+  localStorage.setItem("token", null)
+  this.router.navigate(['/'])
+}
 }

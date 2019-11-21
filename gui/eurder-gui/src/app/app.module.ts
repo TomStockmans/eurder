@@ -9,7 +9,11 @@ import { ItemComponent } from './item/item.component';
 import { OrderComponent } from './order/order.component';
 import { CustomerComponent } from './customer/customer.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './interceptor';
 const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'user', component: UserComponent },
   { path: 'item', component: ItemComponent },
   { path: 'order', component: OrderComponent },
@@ -24,7 +28,8 @@ const appRoutes: Routes = [
     ItemComponent,
     OrderComponent,
     CustomerComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
       RouterModule.forRoot(
@@ -35,7 +40,9 @@ const appRoutes: Routes = [
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

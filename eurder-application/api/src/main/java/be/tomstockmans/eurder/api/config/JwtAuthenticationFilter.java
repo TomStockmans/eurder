@@ -6,12 +6,15 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -44,5 +47,8 @@ public class JwtAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
                 .compact();
 
         response.addHeader(SecurityConstants.TOKEN_HEADER, SecurityConstants.TOKEN_PREFIX + token);
+        ArrayList<GrantedAuthority> roles = new ArrayList<>();
+        authentication.getAuthorities().iterator().forEachRemaining(roles::add);
+        response.addHeader(SecurityConstants.ROLE, roles.get(0).getAuthority());
     }
 }
