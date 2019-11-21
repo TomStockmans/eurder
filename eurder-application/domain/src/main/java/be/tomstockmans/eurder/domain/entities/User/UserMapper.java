@@ -21,7 +21,7 @@ public class UserMapper {
                 createUserDto.adress,
                 createUserDto.phoneNumber,
                 createUserDto.password,
-                createUserDto.role
+                ROLE.USER
         );
 
     }

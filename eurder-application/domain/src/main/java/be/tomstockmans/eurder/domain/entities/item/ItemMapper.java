@@ -2,8 +2,8 @@ package be.tomstockmans.eurder.domain.entities.item;
 
 public class ItemMapper {
 
-    public static Item dtoRequestToItem(ItemDtoRequest itemDtoRequest){
-        return new Item(itemDtoRequest.name, itemDtoRequest.description, itemDtoRequest.price, itemDtoRequest.amount);
+    public static Item dtoRequestToItem(CreateItemDtoRequest createItemDtoRequest){
+        return new Item(createItemDtoRequest.name, createItemDtoRequest.description, createItemDtoRequest.price, createItemDtoRequest.amount);
     }
 
     public static ItemDtoResponse itemToDtoResponse(Item item){

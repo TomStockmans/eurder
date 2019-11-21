@@ -3,7 +3,7 @@ package be.tomstockmans.eurder.api.controller;
 import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroupDtoRequest;
 import be.tomstockmans.eurder.domain.entities.Order.CreateOrderDto;
 import be.tomstockmans.eurder.domain.entities.Order.OrderCreatedDto;
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
+import be.tomstockmans.eurder.domain.entities.item.CreateItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -17,10 +17,10 @@ import java.util.UUID;
 
 class OrderControllerTest extends AbstractControllerTest {
 
-    private ItemDtoResponse postItem(ItemDtoRequest itemDtoRequest) {
+    private ItemDtoResponse postItem(CreateItemDtoRequest createItemDtoRequest) {
         return RestAssured
                 .given()
-                .body(itemDtoRequest)
+                .body(createItemDtoRequest)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .when()
@@ -36,8 +36,8 @@ class OrderControllerTest extends AbstractControllerTest {
     @Test
     void whenAddingNewOrder_newOrderIsAddedAndCorrectlyReturned() {
         UUID userId = UUID.randomUUID();
-        ItemDtoResponse item1 = postItem(new ItemDtoRequest("abc", "cde", 10, 5));
-        ItemDtoResponse item2 = postItem(new ItemDtoRequest("fgh", "ijk", 5, 2));
+        ItemDtoResponse item1 = postItem(new CreateItemDtoRequest("abc", "cde", 10, 5));
+        ItemDtoResponse item2 = postItem(new CreateItemDtoRequest("fgh", "ijk", 5, 2));
         CreateOrderDto createOrderDto = new CreateOrderDto(userId,Arrays.asList(new ItemGroupDtoRequest(item1.id,2),new ItemGroupDtoRequest(item2.id,3)));
 
         OrderCreatedDto orderCreatedDto =

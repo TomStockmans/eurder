@@ -1,10 +1,11 @@
 package be.tomstockmans.eurder.api.controller;
 
 import be.tomstockmans.eurder.api.service.ItemService;
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
+import be.tomstockmans.eurder.domain.entities.item.CreateItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -29,22 +30,26 @@ public class ItemController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemDtoResponse addItem(@RequestBody ItemDtoRequest itemDtoRequest) {
-        return itemService.addItem(itemDtoRequest);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ItemDtoResponse addItem(@RequestBody CreateItemDtoRequest createItemDtoRequest) {
+        return itemService.addItem(createItemDtoRequest);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
     public ItemDtoResponse getItem(@PathVariable("id") UUID id){
        return itemService.getItemById(id);
     }
 
 
     @PutMapping("/{id}")
-    public ItemDtoResponse updateItem(@RequestBody ItemDtoRequest itemDtoRequest, @PathVariable UUID id){
-        return itemService.updateItem(itemDtoRequest, id);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ItemDtoResponse updateItem(@RequestBody CreateItemDtoRequest createItemDtoRequest, @PathVariable UUID id){
+        return itemService.updateItem(createItemDtoRequest, id);
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
     public List<ItemDtoResponse> getAllItem(){
         return itemService.getAllItems();
     }

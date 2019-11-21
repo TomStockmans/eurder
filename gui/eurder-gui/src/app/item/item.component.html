@@ -1,4 +1,4 @@
-<div *ngIf="addedItem == null" class="pushright">
+<div *ngIf="addedItem == null" class="pushright" >
 <h2>Add new item</h2>
 <form>
     Name: <input type="text" name="fname" [(ngModel)]="item.name"><br>
@@ -8,7 +8,7 @@
     <input type="submit" value="Submit" (click)="addItem()">
   </form>
 </div> 
-  <div *ngIf="addedItem != null" class="pushright">
+  <div *ngIf="addedItem != null" class="pushrightanddown">
     <h2>New item added:</h2>
     <ul>
         <li>name: {{addedItem.name}}</li>
@@ -17,4 +17,33 @@
         <li>amount: {{addedItem.amount}}</li>
     </ul>
 </div>
-
+<div *ngIf="items != null && addedItem == null" class="allitems">
+  <div  class="pushright">
+    <h2>All items</h2>
+    <div *ngFor="let item of items" class="items">
+            <table>
+                    <tr>
+                      <td>Name</td>
+                      <td>{{item.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{item.description}}</td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>{{item.price}}</td>
+                    </tr>
+                    <tr>
+                        <td>Left in stock</td>
+                        <td>{{item.amount}}</td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td><input type="submit" value="update" (click)="updateItem(item.id)"> </td>
+                    </tr>
+            </table>     
+              
+        </div>
+      </div>
+  </div>

@@ -5,6 +5,7 @@ import be.tomstockmans.eurder.domain.entities.User.User;
 import be.tomstockmans.eurder.domain.entities.User.UserCreatedResponseDto;
 import be.tomstockmans.eurder.domain.entities.User.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ public class AdminController {
     private UserRepository userRepository;
 
     @GetMapping("/customers")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserCreatedResponseDto> getAllCustomers(){
         System.out.println("in c");
         List<User> users = new ArrayList<>();
@@ -31,6 +33,7 @@ public class AdminController {
     }
 
     @GetMapping("/customers/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserCreatedResponseDto getCustomerWithId(@PathVariable UUID id){
         System.out.println("in c");
         return UserMapper.userToDto(userRepository.findById(id).get());

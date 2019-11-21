@@ -22,4 +22,7 @@ export class ItemService {
     
     return this.http.get<any>(this.apiUrl);
   }
+  updateItem(item : any) : Observable<any> {
+    return this.http.put<any>(this.apiUrl+'/'+item.id, item, {});
+  }
 }

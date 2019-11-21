@@ -15,4 +15,6 @@ public interface UserRepository extends CrudRepository<User, UUID> {
             return list.stream().filter(user -> user.getUsername().equals(username)).findAny().orElseThrow(() ->new IllegalArgumentException("probleempje"));
 
         }
+
+        User findByEmailEquals(String email);
 }

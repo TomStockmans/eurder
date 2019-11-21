@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static be.tomstockmans.eurder.domain.entities.Order.OrderMapper.*;
@@ -41,14 +42,15 @@ public class OrderService {
         this.userRepository = userRepository;
 
         User user = this.userRepository.save(new User("tom", "stockmans", "tom.stockmans@hotmail.com", "tw wilsonlaan 2", "0496209967","tommeke", ROLE.ADMIN));
+        User user2 = this.userRepository.save(new User("tom", "st", "tom.st@t.be", "tw wilsonlaan 2", "0496209967","tommeke", ROLE.USER));
         Item item1 = this.itemRepository.save(new Item("item1", "item 1 description", 2.5, 5));
         Item item2 = this.itemRepository.save(new Item("item2", "item 2 description", 3.5, 7));
 
-        Order order1 = this.orderRepository.save(new Order(Arrays.asList(new ItemGroup(item1, 2),new ItemGroup(item2,1)), user.getId()));
+        //Order order1 = this.orderRepository.save(new Order(Arrays.asList(new ItemGroup(item1, 2),new ItemGroup(item2,1)), user.getId()));
 
     }
 
-    public OrderCreatedDto addOrder(CreateOrderDto orderDtoResponse){
+    public OrderCreatedDto addOrder(UUID id, CreateOrderDto orderDtoResponse){
         System.out.println(orderDtoResponse);
 
         List<ItemGroup> itemGroups = orderDtoResponse.items.stream()
@@ -61,7 +63,7 @@ public class OrderService {
                     .collect(Collectors.toList());
 
 
-        Order order = new Order(itemGroups, null);
+        Order order = new Order(itemGroups, id);
         Order createdOrder = orderRepository.save(order);
         logger.info("added order " + createdOrder.toString());
         return orderToDtoResponse(createdOrder);

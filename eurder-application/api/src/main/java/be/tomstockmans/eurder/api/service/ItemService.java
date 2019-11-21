@@ -3,7 +3,7 @@ package be.tomstockmans.eurder.api.service;
 import be.tomstockmans.eurder.api.controller.ItemController;
 import be.tomstockmans.eurder.domain.db.ItemRepository;
 import be.tomstockmans.eurder.domain.entities.item.Item;
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
+import be.tomstockmans.eurder.domain.entities.item.CreateItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;;
 import be.tomstockmans.eurder.domain.entities.item.ItemMapper;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 
 import static be.tomstockmans.eurder.domain.entities.item.ItemMapper.*;
 
@@ -26,8 +25,8 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public ItemDtoResponse addItem(ItemDtoRequest itemDtoRequest){
-        Item item = dtoRequestToItem(itemDtoRequest);
+    public ItemDtoResponse addItem(CreateItemDtoRequest createItemDtoRequest){
+        Item item = dtoRequestToItem(createItemDtoRequest);
         Item savedItem = itemRepository.save(item);
         logger.info("added item " + savedItem.toString());
         return itemToDtoResponse(savedItem);
@@ -39,8 +38,8 @@ public class ItemService {
     }
 
 
-    public ItemDtoResponse updateItem(ItemDtoRequest itemDtoRequest, UUID id){
-        Item item = dtoRequestToItem(itemDtoRequest);
+    public ItemDtoResponse updateItem(CreateItemDtoRequest createItemDtoRequest, UUID id){
+        Item item = dtoRequestToItem(createItemDtoRequest);
         item.setId(id);
         Item newitem =  itemRepository.save(item);
         logger.info("updated item: " + newitem.toString());

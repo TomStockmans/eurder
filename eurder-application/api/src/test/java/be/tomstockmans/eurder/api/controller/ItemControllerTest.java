@@ -1,6 +1,6 @@
 package be.tomstockmans.eurder.api.controller;
 
-import be.tomstockmans.eurder.domain.entities.item.ItemDtoRequest;
+import be.tomstockmans.eurder.domain.entities.item.CreateItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
@@ -11,10 +11,10 @@ import io.restassured.RestAssured;
 
 class ItemControllerTest extends AbstractControllerTest{
 
-    private ItemDtoResponse postItem(ItemDtoRequest itemDtoRequest){
+    private ItemDtoResponse postItem(CreateItemDtoRequest createItemDtoRequest){
         return RestAssured
                 .given()
-                .body(itemDtoRequest)
+                .body(createItemDtoRequest)
                 .accept(ContentType.JSON)
                 .contentType(ContentType.JSON)
                 .when()
@@ -30,25 +30,25 @@ class ItemControllerTest extends AbstractControllerTest{
 
     @Test
     void whenNewItemIsCreated_thenTheItemIsSavedAndReturned(){
-        ItemDtoRequest itemDtoRequest = new ItemDtoRequest("abc","cdef",2.5,10);
+        CreateItemDtoRequest createItemDtoRequest = new CreateItemDtoRequest("abc","cdef",2.5,10);
 
-        ItemDtoResponse itemDtoResponseReturned = postItem(itemDtoRequest);
+        ItemDtoResponse itemDtoResponseReturned = postItem(createItemDtoRequest);
 
 
-        Assertions.assertEquals(itemDtoRequest.name, itemDtoResponseReturned.name);
-        Assertions.assertEquals(itemDtoRequest.description, itemDtoResponseReturned.description);
-        Assertions.assertEquals(itemDtoRequest.price, itemDtoResponseReturned.price);
-        Assertions.assertEquals(itemDtoRequest.amount, itemDtoResponseReturned.amount);
+        Assertions.assertEquals(createItemDtoRequest.name, itemDtoResponseReturned.name);
+        Assertions.assertEquals(createItemDtoRequest.description, itemDtoResponseReturned.description);
+        Assertions.assertEquals(createItemDtoRequest.price, itemDtoResponseReturned.price);
+        Assertions.assertEquals(createItemDtoRequest.amount, itemDtoResponseReturned.amount);
         Assertions.assertTrue(itemDtoResponseReturned.id != null);
 
     }
 
     @Test
     void whenNewItemIsUpdated_thenTheItemIsCorrectlyChanged(){
-        ItemDtoRequest itemDtoRequest = new ItemDtoRequest("abc","cdef",2.5,10);
-        ItemDtoResponse itemDtoResponseReturned = postItem(itemDtoRequest);
+        CreateItemDtoRequest createItemDtoRequest = new CreateItemDtoRequest("abc","cdef",2.5,10);
+        ItemDtoResponse itemDtoResponseReturned = postItem(createItemDtoRequest);
 
-        ItemDtoRequest itemToUpdate = new ItemDtoRequest("abcd","cdefg",3,15);
+        CreateItemDtoRequest itemToUpdate = new CreateItemDtoRequest("abcd","cdefg",3,15);
         ItemDtoResponse itemDtoResponseReturnedUpdated = RestAssured
                         .given()
                         .body(itemToUpdate)

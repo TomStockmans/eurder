@@ -58,4 +58,8 @@ public class UserService {
             throw new BadCredentialsException("username or password not correct");
         }
     }
+
+    public UUID findIdFromUserWithMail(String email) {
+        return userRepository.findByEmailEquals(email).getId();
+    }
 }

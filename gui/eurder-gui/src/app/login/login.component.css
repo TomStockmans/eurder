@@ -68,3 +68,9 @@ form {
       width: 100%;
     }
   }
+
+  .signup{
+    float: left; 
+    width: 20%;
+    background-color: rgb(127, 201, 129);
+  }

@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
-//@CrossOrigin
 public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -28,18 +27,18 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('ADMIN')")
     public UserCreatedResponseDto addUser(@RequestBody CreateUserDto createUserDto) {
         return userService.addUser(createUserDto);
-
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserCreatedResponseDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserCreatedResponseDto getUserWithId(@PathVariable UUID id) {
         return userService.getUserById(id);
 

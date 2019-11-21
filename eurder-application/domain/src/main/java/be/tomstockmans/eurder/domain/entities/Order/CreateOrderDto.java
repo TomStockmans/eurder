@@ -1,6 +1,5 @@
 package be.tomstockmans.eurder.domain.entities.Order;
 
-import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroup;
 import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroupDtoRequest;
 
 import java.util.List;

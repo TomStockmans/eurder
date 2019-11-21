@@ -10,9 +10,9 @@ public class CreateUserDto {
     public String adress;
     public String phoneNumber;
     public String password;
-    public ROLE     role;
+    //public ROLE     role;
 
-    public CreateUserDto(String firstName, String lastName, String email, String adress, String phoneNumber, String password, ROLE role) {
+    public CreateUserDto(String firstName, String lastName, String email, String adress, String phoneNumber, String password) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,6 +20,5 @@ public class CreateUserDto {
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.role = role;
     }
 }
