@@ -10,14 +10,16 @@ import { ItemService } from '../item.service';
 export class ItemComponent implements OnInit {
 
   @Input() item = new Item;
-  itemService = new ItemService();
+  
+  constructor(private itemService: ItemService) { 
+
+  }
+  
   addedItem: any;
 
   addItem(): void {
-      this.itemService.addItem(this.item).then(value => this.addedItem = value );
+      this.itemService.addItem(this.item).subscribe(value => this.addedItem = value );
   }
-
-  constructor() { }
 
   ngOnInit() {
   }

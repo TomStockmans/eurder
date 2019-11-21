@@ -1,34 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item';
-import Axios from 'axios';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
 
-  constructor() { }
+  constructor(private http: HttpClient){
+
+  }
 
   apiUrl : string = 'http://localhost:8080/items';
 
-  async addItem (item : Item) : Promise<any> {
-    const response = await Axios.post(this.apiUrl, item).then(response => {
-      if(response.status == 201){
-        return response.data;
-      }
-    });
-
-    if(response) return response;
+  addItem (item : Item) : Observable<any> {
+    return this.http.post<any>(this.apiUrl, item, {});
   }
 
-  async getAllItems() : Promise<any> {
+  getAllItems() : Observable<any> {
     
-    const response = await Axios.get(this.apiUrl).then(response => {
-      if(response.status == 200){
-        return response.data;
-      }
-    });
-
-    if(response) return response;
+    return this.http.get<any>(this.apiUrl);
   }
 }

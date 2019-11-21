@@ -9,16 +9,16 @@ import { UserService } from '../user.service';
 })
 export class UserComponent implements OnInit {
   @Input() user = new User();
-  userService = new UserService();
   addedUser: any;
-   
-  addUser() : void {
-    this.userService.addUser(this.user).then(value => this.addedUser = value );
-  };
-
-  constructor() { 
+  
+  constructor(private userService: UserService) { 
 
   }
+  
+  addUser() : void {
+    this.userService.addUser(this.user).subscribe(response => console.log(`Voila: ${response}`));
+  };
+
 
   ngOnInit() {
 

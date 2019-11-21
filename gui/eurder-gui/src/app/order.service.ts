@@ -1,28 +1,22 @@
 import { Injectable } from '@angular/core';
-import Axios from 'axios';
 import { Order } from './order';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-  constructor() { }
+  private apiUrl : string = 'http://localhost:8080/orders';
+  
+  constructor(private http: HttpClient) { }
 
-  apiUrl : string = 'http://localhost:8080/orders';
-
-  async addOrder (itemgroup) : Promise<any> {
+  addOrder (itemgroup) : Observable<any> {
     
     var order = new Order(null, itemgroup);
-
-    const response = await Axios.post(this.apiUrl, order).then(response => {
-      
-      if(response.status == 201){
-        return response.data;
-      }
-    });
-
-    if(response) return response;
+    return this.http.post<any>(this.apiUrl, order, {});
+   
   }
 
 }

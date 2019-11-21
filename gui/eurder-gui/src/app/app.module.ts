@@ -10,8 +10,9 @@ import { OrderComponent } from './order/order.component';
 import { CustomerComponent } from './customer/customer.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Interceptor } from './interceptor';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CustomInterceptor } from './interceptor';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'user', component: UserComponent },
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
     OrderComponent,
     CustomerComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
       RouterModule.forRoot(
@@ -37,11 +38,12 @@ const appRoutes: Routes = [
         { enableTracing: true } // <-- debugging purposes only
       ),
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

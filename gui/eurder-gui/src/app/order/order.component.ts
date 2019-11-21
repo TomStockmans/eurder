@@ -9,13 +9,11 @@ import { OrderService } from '../order.service';
 })
 export class OrderComponent implements OnInit {
 
-  itemService = new ItemService();
-  orderService = new OrderService();
   items : any;
   shoppingCard = [];
   orderPlaced : any;
 
-  constructor() { }
+  constructor(private itemService: ItemService, private orderService: OrderService) { }
 
   getItems(){
    return this.itemService.getAllItems();
@@ -37,11 +35,11 @@ export class OrderComponent implements OnInit {
 
   placeOrder(){
     
-    this.orderService.addOrder(this.shoppingCard).then(value => this.orderPlaced = value)
+    this.orderService.addOrder(this.shoppingCard).subscribe(value => this.orderPlaced = value)
   }
 
   ngOnInit() {
-    this.itemService.getAllItems().then(value => this.items = value);
+    this.itemService.getAllItems().subscribe(value => this.items = value);
   }
 
 }

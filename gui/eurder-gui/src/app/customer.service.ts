@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import Axios from 'axios';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,25 +9,19 @@ export class CustomerService {
 
   apiUrl : string = 'http://localhost:8080/users';
 
-  async getAllCustomers() : Promise<any> {
-    const response = await Axios.get(this.apiUrl).then(response => {
-      if(response.status == 200){
-        return response.data;
-      }
-    });
+  
+  constructor(private http: HttpClient) { 
 
-    if(response) return response;
   }
   
-  async getCustomerDetail(id) : Promise<any> {
-    const response = await Axios.get(this.apiUrl+"/"+id).then(response => {
-      if(response.status == 200){
-        return response.data;
-      }
-    });
 
-    if(response) return response;
+  getAllCustomers() : Observable<any> {
+
+    return this.http.get<any>(this.apiUrl);
+
   }
-
-  constructor() { }
+  
+  getCustomerDetail(id) : Observable<any> {
+    return this.http.get<any>(this.apiUrl+"/"+id);
+  }
 }

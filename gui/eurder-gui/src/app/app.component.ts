@@ -14,13 +14,13 @@ constructor(private router: Router){
 
   title = 'eurder-gui';
   getRole() {
-    console.log(localStorage.getItem("role"));
+    //console.log(localStorage.getItem("role"));
     return localStorage.getItem("role");
-}
+  }
 
 logout(){
-  localStorage.setItem("role", null)
-  localStorage.setItem("token", null)
+  localStorage.setItem("role", undefined)
+  localStorage.setItem("token", undefined)
   this.router.navigate(['/'])
 }
 }
