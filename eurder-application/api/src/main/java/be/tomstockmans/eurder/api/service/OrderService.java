@@ -13,16 +13,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static be.tomstockmans.eurder.domain.entities.Order.OrderMapper.*;
 
 @Service
+@Transactional
 public class OrderService {
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -42,9 +41,6 @@ public class OrderService {
         User user2 = this.userRepository.save(new User("tom", "st", "tom.st@t.be", "tw wilsonlaan 2", "0496209967","tommeke", ROLE.USER));
         Item item1 = this.itemRepository.save(new Item("item1", "item 1 description", 2.5, 5));
         Item item2 = this.itemRepository.save(new Item("item2", "item 2 description", 3.5, 7));
-
-        //Order order1 = this.orderRepository.save(new Order(Arrays.asList(new ItemGroup(item1, 2),new ItemGroup(item2,1)), user.getId()));
-
     }
 
     public OrderCreatedDto addOrder(UUID id, CreateOrderDto orderDtoResponse){
@@ -60,6 +56,7 @@ public class OrderService {
 
         Order order = new Order(itemGroups, id);
         Order createdOrder = orderRepository.save(order);
+        createdOrder.getItems().forEach(ig -> reduceStockOfItemBy(ig.getItem().getId(), ig.getAmount()));
         logger.info("added order " + createdOrder.toString());
         return orderToDtoResponse(createdOrder);
 
@@ -82,6 +79,17 @@ public class OrderService {
                 .map(ig -> new ItemGroup(ig.getItem(), ig.getAmount()))
                 .collect(Collectors.toList());
         Order newOrder = new Order(itemGroups, userId);
-        return orderToDtoResponse(orderRepository.save(newOrder));
+
+        OrderCreatedDto orderCreatedDto = orderToDtoResponse(orderRepository.save(newOrder));
+        newOrder.getItems().forEach(ig -> reduceStockOfItemBy(ig.getItem().getId(), ig.getAmount()));
+        return orderCreatedDto;
     }
+
+    private void reduceStockOfItemBy(UUID itemId, int amount){
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new NoSuchElementException("cant find item with this id"));
+        logger.info("reducing amount of item with id " + item.getId() + " with " + amount);
+        item.setAmount(item.getAmount()-amount);
+    }
+
+
 }

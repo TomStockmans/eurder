@@ -3,6 +3,7 @@ package be.tomstockmans.eurder.api.controller;
 import be.tomstockmans.eurder.api.service.ItemService;
 import be.tomstockmans.eurder.domain.entities.item.CreateItemDtoRequest;
 import be.tomstockmans.eurder.domain.entities.item.ItemDtoResponse;
+import be.tomstockmans.eurder.domain.entities.item.ItemThatNeedToBeShippedDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,6 +54,14 @@ public class ItemController {
     public List<ItemDtoResponse> getAllItem(){
         return itemService.getAllItems();
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/ship")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public List<ItemThatNeedToBeShippedDto> getItemsThatNeedToBeShipped(){
+        return itemService.getItemsThatNeedToBeShipped();
+    }
+
+
 
 
 

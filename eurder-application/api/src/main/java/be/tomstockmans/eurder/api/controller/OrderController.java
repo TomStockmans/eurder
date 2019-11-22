@@ -1,5 +1,6 @@
 package be.tomstockmans.eurder.api.controller;
 
+import be.tomstockmans.eurder.api.service.ItemService;
 import be.tomstockmans.eurder.api.service.OrderService;
 import be.tomstockmans.eurder.api.service.UserService;
 import be.tomstockmans.eurder.domain.entities.Order.CreateOrderDto;
@@ -26,12 +27,14 @@ public class OrderController {
 
     private OrderService orderService;
     private UserService userService;
+    private ItemService itemService;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService, UserService userService, ItemService itemService) {
 
         this.orderService = orderService;
         this.userService = userService;
+        this.itemService = itemService;
     }
 
     @PostMapping
@@ -65,6 +68,7 @@ public class OrderController {
         UUID userId = userService.findIdFromUserWithMail(principal.getName());
         return orderService.reOrder(orderId, userId);
     }
+
 
 
 
