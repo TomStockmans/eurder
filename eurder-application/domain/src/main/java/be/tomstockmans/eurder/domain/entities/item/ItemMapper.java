@@ -23,20 +23,6 @@ public class ItemMapper {
 
     public static List<ItemThatNeedToBeShippedDto> itemToItemThatNeedToBeShipedDto(User user) {
 
-        return user.getOrders()
-                .stream()
-                .map(order ->
-                        order.getItems().stream().map(itemGroup ->
-                                        new ItemThatNeedToBeShippedDto.ItemGroupDto(
-                                                new ItemThatNeedToBeShippedDto.ItemDto(
-                                                        itemGroup.getItem().getId(),
-                                                        itemGroup.getItem().getAmount(),
-                                                        itemGroup.getShippingDate(),
-
-                                                )
-                                        )
-                                )
-                )
-                .collect(Collectors.toList());
+        return null;
     }
 }
