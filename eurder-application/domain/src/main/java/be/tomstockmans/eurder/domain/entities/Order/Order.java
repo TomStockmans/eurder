@@ -18,6 +18,7 @@ public class Order {
     private List<ItemGroup> items;
     private double totalPrice;
 
+
     private UUID userId;
 
 
@@ -63,8 +64,10 @@ public class Order {
         return totalPrice;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public UUID getUserId() {return userId;}
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     @Override

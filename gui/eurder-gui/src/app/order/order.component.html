@@ -1,4 +1,4 @@
-<div class="pushright">
+<div class="pushright" *ngIf="getRole() == 'USER'">
 <h2>new order</h2>
 <p *ngIf="items == null">loading..</p>
 <div *ngIf="orderPlaced == null">
@@ -60,6 +60,11 @@
             <li> shipping date : {{itemgroup.shippingDate}}</li>
         </ul>
         <p>total price : {{orderPlaced.totalPrice}}</p>
+    </div>
+</div>
+<div class="pushright" *ngIf="getRole() == 'ADMIN'">
+    <div *ngFor = "let itemGroup of itemsThatNeedToBeShipped">
+            <p>{{itemGroup[0].amount}}</p>
     </div>
 </div>
     

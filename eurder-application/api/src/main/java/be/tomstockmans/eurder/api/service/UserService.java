@@ -53,7 +53,7 @@ public class UserService {
     public User findUserByUsername(String username) {
         try {
 
-            return userRepository.findByUserName(username);
+            return userRepository.findByEmailEquals(username);
         } catch (Exception e){
             throw new BadCredentialsException("username or password not correct");
         }

@@ -3,6 +3,9 @@ package be.tomstockmans.eurder.api.service;
 import be.tomstockmans.eurder.api.controller.ItemController;
 import be.tomstockmans.eurder.domain.db.ItemRepository;
 import be.tomstockmans.eurder.domain.db.OrderRepository;
+import be.tomstockmans.eurder.domain.db.UserRepository;
+import be.tomstockmans.eurder.domain.entities.Order.Order;
+import be.tomstockmans.eurder.domain.entities.User.User;
 import be.tomstockmans.eurder.domain.entities.item.*;
 ;
 import org.slf4j.Logger;
@@ -11,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static be.tomstockmans.eurder.domain.entities.item.ItemMapper.*;
 
@@ -24,11 +29,13 @@ public class ItemService {
 
     private ItemRepository itemRepository;
     private OrderRepository orderRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ItemService(ItemRepository itemRepository, OrderRepository orderRepository) {
+    public ItemService(ItemRepository itemRepository, OrderRepository orderRepository, UserRepository userRepository) {
         this.itemRepository = itemRepository;
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
     }
 
     public ItemDtoResponse addItem(CreateItemDtoRequest createItemDtoRequest){
@@ -61,7 +68,11 @@ public class ItemService {
     }
 
     public List<ItemThatNeedToBeShippedDto> getItemsThatNeedToBeShipped() {
-
-        return null;
+        List<User> users = userRepository.findAll();
+        List<ItemThatNeedToBeShippedDto> itemThatNeedToBeShippedDtos = new ArrayList<>();
+        users.stream().forEach(u -> itemThatNeedToBeShippedDtos.addAll(
+                ItemMapper.itemToItemThatNeedToBeShipedDto(u)
+        ));
+        return itemThatNeedToBeShippedDtos;
     }
 }

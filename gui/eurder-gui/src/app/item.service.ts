@@ -25,4 +25,7 @@ export class ItemService {
   updateItem(item : any) : Observable<any> {
     return this.http.put<any>(this.apiUrl+'/'+item.id, item, {});
   }
+  getItemsThatNeedToBeShipped(){
+    return this.http.get<any>(this.apiUrl+"/ship");
+  }
 }

@@ -1,8 +1,13 @@
 package be.tomstockmans.eurder.domain.entities.User;
 
 
+import be.tomstockmans.eurder.domain.entities.Order.Order;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -18,6 +23,9 @@ public class User implements ExternalAuthentication{
     private String phoneNumber;
     private ROLE role;
     private String password;
+
+    @OneToMany(targetEntity=Order.class, mappedBy = "userId")
+    private List<Order> orders;
 
 
     public User(String firstName, String lastName, String email, String adress, String phoneNumber, String password, ROLE role) {
@@ -51,6 +59,7 @@ public class User implements ExternalAuthentication{
         return adress;
     }
 
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -58,6 +67,8 @@ public class User implements ExternalAuthentication{
     public UUID getId() {
         return id;
     }
+
+    public List<Order> getOrders() { return orders; }
 
     public void setId(UUID id) {
         this.id = id;
@@ -110,4 +121,6 @@ public class User implements ExternalAuthentication{
     public String getRole() {
         return role.name();
     }
+
+
 }

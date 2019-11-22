@@ -9,9 +9,11 @@ import { OrderService } from '../order.service';
 })
 export class OrderComponent implements OnInit {
 
+
   items : any;
   shoppingCard = [];
   orderPlaced : any;
+  itemsThatNeedToBeShipped: any;
 
   constructor(private itemService: ItemService, private orderService: OrderService) { }
 
@@ -31,6 +33,10 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  getRole(){
+    return localStorage.getItem("role");
+  }
+
   isCardNotEmpty(){return this.shoppingCard.length > 0}
 
   placeOrder(){
@@ -38,8 +44,16 @@ export class OrderComponent implements OnInit {
     this.orderService.addOrder(this.shoppingCard).subscribe(value => this.orderPlaced = value)
   }
 
+  getItemsThatNeedToBeShipped(){
+    this.itemService.getItemsThatNeedToBeShipped().subscribe(value => {this.itemsThatNeedToBeShipped = value; console.log(value[0])})
+    
+  }
+
   ngOnInit() {
     this.itemService.getAllItems().subscribe(value => this.items = value);
+    if(this.getRole() == 'ADMIN'){
+      this.getItemsThatNeedToBeShipped();
+    }
   }
 
 }

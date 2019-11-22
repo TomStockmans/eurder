@@ -3,7 +3,7 @@
       <ul routerLinkActive="active">
           <li><a routerLink=""><img src="../assets/order.png" height="40" width="96"></a></li>
           <li *ngIf="getRole() == 'ADMIN'" class="nav-item"><a class="nav-link" routerLink="item">Items</a></li>
-          <li *ngIf="getRole() == 'USER'" class="nav-item"><a class="nav-link" routerLink="order">Orders</a></li>
+          <li *ngIf="getRole() != 'undefined'" class="nav-item"><a class="nav-link" routerLink="order">Orders</a></li>
           <li *ngIf="getRole() == 'ADMIN'" class="nav-item"><a class="nav-link" routerLink="customer">Customers</a></li>
           <li *ngIf="getRole() == 'USER'" class="nav-item"><a class="nav-link" routerLink="report">Report</a></li>
           <li *ngIf="getRole() == 'undefined'" class="nav-item"><a class="nav-link" routerLink="login">Login</a></li>

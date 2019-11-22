@@ -17,9 +17,7 @@ public class ItemGroup {
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
-
     private int amount;
-
     private LocalDate shippingDate;
 
     public ItemGroup(Item item, int amount) {
