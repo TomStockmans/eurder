@@ -1,7 +1,7 @@
 <div class="pushright">
     <h2>Report</h2>
     <h3>orders:</h3>
-    <div *ngFor="let order of report.orders">
+    <div *ngFor="let order of report.orders" class="orderdiv">
         <p>id of order: {{order.orderId}}</p>    
         <table>
             <tr>
@@ -20,7 +20,7 @@
                 <td>{{order.totalPriceOrder}}</td>
             </tr>
         </table>
-
+        <button (click)="reOrder(order.orderId)">re-order</button>
     </div>
-    <p>total price of all orders: {{report.totalPriceOfAllOrders}}</p>
+    <h4>total price of all orders: {{report.totalPriceOfAllOrders}}</h4>
 </div>

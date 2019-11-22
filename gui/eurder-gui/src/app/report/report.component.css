@@ -2,3 +2,8 @@
 {
    border: none;
 }
+
+.orderdiv{
+    padding: 2%;
+    border-bottom: solid 3px gray;
+}

@@ -18,7 +18,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(OrderController.ORDER_CONTROLLER_RESOURCE_URL)
-//@CrossOrigin
 public class OrderController {
 
     public static final String ORDER_CONTROLLER_RESOURCE_URL = "/orders";
@@ -57,5 +56,17 @@ public class OrderController {
         UUID id = userService.findIdFromUserWithMail(principal.getName());
         return orderService.getReportForPersonWithId(id);
     }
+
+    @PostMapping("reorder")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('USER')")
+    public OrderCreatedDto reOrder(@RequestBody String id, Principal principal){
+        UUID orderId = UUID.fromString(id);
+        UUID userId = userService.findIdFromUserWithMail(principal.getName());
+        return orderService.reOrder(orderId, userId);
+    }
+
+
+
 
 }

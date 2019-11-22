@@ -23,4 +23,8 @@ export class OrderService {
     return this.http.get<any>(this.apiUrl +"/report")
   }
 
+  reOrder(id){
+    return this.http.post<any>(this.apiUrl + "/reorder", id, {});
+  }
+
 }

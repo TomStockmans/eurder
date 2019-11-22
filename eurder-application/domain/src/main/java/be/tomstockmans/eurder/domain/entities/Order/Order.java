@@ -47,6 +47,10 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
+    public void setIdToNull(){
+        this.id = null;
+    }
+
     public UUID getId() {
         return id;
     }

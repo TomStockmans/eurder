@@ -48,8 +48,6 @@ public class OrderService {
     }
 
     public OrderCreatedDto addOrder(UUID id, CreateOrderDto orderDtoResponse){
-        System.out.println(orderDtoResponse);
-
         List<ItemGroup> itemGroups = orderDtoResponse.items.stream()
                     .map(
                         itemGroupDtoRequest ->
@@ -75,5 +73,15 @@ public class OrderService {
 
     public ReportOfOrdersDto getReportForPersonWithId(UUID id) {
         return OrderMapper.ordersToReportDto(orderRepository.findAllByUserId(id));
+    }
+
+    public OrderCreatedDto reOrder(UUID orderId, UUID userId) {
+        Order order = orderRepository.findAllByIdAndUserId(orderId, userId);
+        List<ItemGroup> itemGroups = order.getItems()
+                .stream()
+                .map(ig -> new ItemGroup(ig.getItem(), ig.getAmount()))
+                .collect(Collectors.toList());
+        Order newOrder = new Order(itemGroups, userId);
+        return orderToDtoResponse(orderRepository.save(newOrder));
     }
 }
