@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomInterceptor } from './interceptor';
+import { ReportComponent } from './report/report.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'report', component: ReportComponent }
 ];
 
 @NgModule({
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
     CustomerComponent,
     LoginComponent,
     HomeComponent,
+    ReportComponent,
   ],
   imports: [
       RouterModule.forRoot(

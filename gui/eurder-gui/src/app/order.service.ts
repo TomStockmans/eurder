@@ -19,4 +19,8 @@ export class OrderService {
    
   }
 
+  getReport(){
+    return this.http.get<any>(this.apiUrl +"/report")
+  }
+
 }

@@ -1,0 +1,26 @@
+<div class="pushright">
+    <h2>Report</h2>
+    <h3>orders:</h3>
+    <div *ngFor="let order of report.orders">
+        <p>id of order: {{order.orderId}}</p>    
+        <table>
+            <tr>
+                <td>Name</td>
+                <td>Amount</td>
+                <td>Total price</td>
+            </tr>
+            <tr *ngFor="let itemgroup of order.itemGroups">
+                <td>{{itemgroup.name}}</td>
+                <td>{{itemgroup.amount}}</td>
+                <td>{{itemgroup.totalPrice}}</td>
+            </tr>
+            <tr class="lasttr">
+                <td></td>
+                <td></td>
+                <td>{{order.totalPriceOrder}}</td>
+            </tr>
+        </table>
+
+    </div>
+    <p>total price of all orders: {{report.totalPriceOfAllOrders}}</p>
+</div>

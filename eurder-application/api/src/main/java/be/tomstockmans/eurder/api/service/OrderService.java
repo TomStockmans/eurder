@@ -4,11 +4,8 @@ import be.tomstockmans.eurder.api.controller.OrderController;
 import be.tomstockmans.eurder.domain.db.ItemRepository;
 import be.tomstockmans.eurder.domain.db.OrderRepository;
 import be.tomstockmans.eurder.domain.db.UserRepository;
-import be.tomstockmans.eurder.domain.entities.Order.CreateOrderDto;
-import be.tomstockmans.eurder.domain.entities.Order.OrderCreatedDto;
+import be.tomstockmans.eurder.domain.entities.Order.*;
 import be.tomstockmans.eurder.domain.entities.ItemGroup.ItemGroup;
-import be.tomstockmans.eurder.domain.entities.Order.Order;
-import be.tomstockmans.eurder.domain.entities.Order.OrderMapper;
 import be.tomstockmans.eurder.domain.entities.User.ROLE;
 import be.tomstockmans.eurder.domain.entities.User.User;
 import be.tomstockmans.eurder.domain.entities.item.Item;
@@ -74,5 +71,9 @@ public class OrderService {
         List<OrderCreatedDto> orders = new ArrayList<>();
         orderRepository.findAll().forEach(order -> orders.add(OrderMapper.orderToDtoResponse(order)));
         return orders;
+    }
+
+    public ReportOfOrdersDto getReportForPersonWithId(UUID id) {
+        return OrderMapper.ordersToReportDto(orderRepository.findAllByUserId(id));
     }
 }

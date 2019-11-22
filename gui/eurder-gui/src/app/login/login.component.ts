@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   async login(){
      var succes = await this.userservice.login(this.username, this.password);
+     alert(localStorage.getItem('token'))
      if(localStorage.getItem('token') != 'undefined'){
        this.router.navigate(['/']);
      }

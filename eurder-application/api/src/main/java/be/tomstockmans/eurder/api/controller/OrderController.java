@@ -4,6 +4,7 @@ import be.tomstockmans.eurder.api.service.OrderService;
 import be.tomstockmans.eurder.api.service.UserService;
 import be.tomstockmans.eurder.domain.entities.Order.CreateOrderDto;
 import be.tomstockmans.eurder.domain.entities.Order.OrderCreatedDto;
+import be.tomstockmans.eurder.domain.entities.Order.ReportOfOrdersDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class OrderController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<OrderCreatedDto> getAllOrders(){
         return orderService.getAllOrders();
+    }
+
+    @GetMapping("/report")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('USER')")
+    public ReportOfOrdersDto getReportOfOrders(Principal principal){
+        UUID id = userService.findIdFromUserWithMail(principal.getName());
+        return orderService.getReportForPersonWithId(id);
     }
 
 }
